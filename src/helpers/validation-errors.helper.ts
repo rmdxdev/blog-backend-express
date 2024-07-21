@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from 'express'
 import { ValidationError, validationResult } from 'express-validator'
+import { StatusCodes } from 'http-status-codes'
 import fs from 'node:fs/promises'
 
 export const validationErrors = async (req: Request, res: Response, next: NextFunction) => {
@@ -16,7 +17,7 @@ export const validationErrors = async (req: Request, res: Response, next: NextFu
       await fs.unlink(req.file.path)
     }
 
-    return res.status(400).json(formattedErrors.array())
+    return res.status(StatusCodes.BAD_REQUEST).json(formattedErrors.array())
   }
 
   next()
