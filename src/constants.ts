@@ -10,4 +10,5 @@ export const BCRYPT_SALT = process.env.BCRYPT_SALT
 export const CLIENT_URL = 'http://localhost:5173'
 
 export const API_PORT = process.env.API_PORT
+export const API_PORT_DEFAULT = 5995
 export const API_URL = `http://localhost:${API_PORT}`
