@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "sourceMap": false,
+    "outDir": "./build",
+    "rootDir": "./src",
+    "strict": true,
+    "strictPropertyInitialization": true,
+    "noImplicitAny": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "ts-node": {
+    "swc": true,
+    "require": ["tsconfig-paths/register"]
+  },
+  "lib": ["es2015"],
+  "include": ["src/**/*"]
+}
