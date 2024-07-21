@@ -5,7 +5,7 @@
 </p>
 
 <div align="center">
-    <a href="#">Swagger doc (soon)</a>
+    <a href="#">Swagger doc (soon)</a> ·
     <a href="https://github.com/rmdxdev/miracle-api/issues">Report bug</a> ·
     <a href="https://github.com/rmdxdev/miracle-api/issues">Request feature</a>
 </div>
