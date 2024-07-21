@@ -12,7 +12,6 @@ import express, { Request, Response, Router } from 'express'
 import helmet from 'helmet'
 import hpp from 'hpp'
 import 'module-alias/register'
-import swaggerUi from 'swagger-ui-express'
 import { constants } from 'zlib'
 
 const app = express()
@@ -26,7 +25,6 @@ app.use(express.json())
 const apiRouter = Router()
 app.use('/api', apiRouter)
 app.use('/images', express.static('images'))
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
 apiRouter.use('/auth', authRouter)
 apiRouter.use('/logs', logsRouter)
