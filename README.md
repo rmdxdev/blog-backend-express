@@ -1,10 +1,11 @@
-<h1 align="center">Miracle API</h1>
+<h1 align="center">Blog API</h1>
 
 <p align="center">
     An API for my pet project, covering a wide range <br> of functionality used in real web applications.
 </p>
 
 <div align="center">
+    <a href="#">Swagger doc (soon)</a>
     <a href="https://github.com/rmdxdev/miracle-api/issues">Report bug</a> ·
     <a href="https://github.com/rmdxdev/miracle-api/issues">Request feature</a>
 </div>
@@ -13,11 +14,11 @@
 
 ---
 
-- 🚄 **Fast:** requests are cached and compressed (Redis(dev), Compression, etc.) (improving...)
-- 🚀 **Optimize:** formatting photos in webp, returns only the required data (Sharp, Prisma selecting, etc.)
-- 🔒 **Safe:** data validation, http web security standards (Express-validator, Helmet, etc.)
-- ⚡ **Fast building:** fast project assembly with SWC
-- ✍🏻 **Readability:** good application structure, understandable code
+- 🚄 **Fast:** requests are cached and compressed (Compression, etc.)
+- 🚀 **Optimize:** formatting photos in webp, returns only the required data. (Sharp, Prisma selecting, etc.)
+- 🔒 **Safe:** data validation, http web security standards. (Express-validator, Helmet, etc.)
+- ⚡ **Fast building:** fast project assembly with SWC.
+- ✍🏻 **Readability:** good application structure, understandable code.
 
 ### ⚡ Tech Stack
 
@@ -73,10 +74,10 @@ npm run lint:fix
 
 ```
 # Clone repo
-git clone https://github.com/rmdxdev/miracle-api.git
+git clone https://github.com/rmdxdev/blog-app-api.git
 
 # Go to the directory
-cd miracle-api
+cd blog-app-api
 
 # Create a branch with your feature
 git checkout -b your-feature
