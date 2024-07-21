@@ -1,3 +1,5 @@
+import { createValidationText } from '@/helpers/create-validation-text.helper'
+
 export const VALIDATION = {
   descMinLength: 20,
   contentMinLength: 150,
@@ -13,10 +15,10 @@ export const VALIDATION_MESSAGES = {
   email: 'The value must be a mail',
   object: 'The value must be an object',
   array: 'The value must be an array',
-  titleMinLength: `The value must contain at least ${VALIDATION.postTitleMinLength}`,
-  commentMinLength: `The value must contain at least ${VALIDATION.commentMinLength}`,
-  contentMinLength: `The value must contain at least ${VALIDATION.contentMinLength} characters`,
-  descMinLength: `The value must contain at least ${VALIDATION.descMinLength} characters`,
+  titleMinLength: createValidationText(VALIDATION.postTitleMinLength),
+  commentMinLength: createValidationText(VALIDATION.commentMinLength),
+  contentMinLength: createValidationText(VALIDATION.contentMinLength),
+  descMinLength: createValidationText(VALIDATION.descMinLength),
   usernameLength: `The value must contain between ${VALIDATION.usernameMinLength} and ${VALIDATION.usernameMaxLength} characters`,
-  passwordMinLength: `The value must contain at least ${VALIDATION.passwordMinLength} characters`
+  passwordMinLength: createValidationText(VALIDATION.passwordMinLength)
 }
