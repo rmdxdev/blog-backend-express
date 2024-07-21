@@ -8,5 +8,6 @@ declare namespace NodeJS {
     SMTP_PORT: string
     SMTP_EMAIL: string
     SMTP_PASSWORD: string
+    NODE_ENV: 'production' | 'development'
   }
 }
