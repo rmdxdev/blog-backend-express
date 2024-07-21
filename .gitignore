@@ -1,6 +1,6 @@
 ## Project folders
-logs
-images
+/logs
+/images
 build
 
 # Logs
