@@ -24,11 +24,7 @@ const storage = multer.diskStorage({
 const fileFilter = (_: Request, file: Express.Multer.File, cb: FileFilterCallback) => {
   const imageType = file.mimetype
 
-  if (ALLOWED_IMAGES.includes(imageType)) {
-    cb(null, true)
-  } else {
-    cb(new Error('Invalid image type'))
-  }
+  ALLOWED_IMAGES.includes(imageType) ? cb(null, true) : cb(new Error('Invalid image type'))
 }
 
 export const uploadImages = multer({ fileFilter, storage, limits: { fileSize: IMAGE_MAX_SIZE } })
