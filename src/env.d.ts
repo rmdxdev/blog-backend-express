@@ -4,5 +4,9 @@ declare namespace NodeJS {
     JWT_REFRESH_TOKEN: string
     BCRYPT_SALT: string
     API_PORT: string
+    SMTP_SERVICE: string
+    SMTP_PORT: string
+    SMTP_EMAIL: string
+    SMTP_PASSWORD: string
   }
 }
