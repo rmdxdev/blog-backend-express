@@ -1,37 +1,14 @@
-import { API_PORT, API_URL } from './constants'
-import authRouter from './features/auth/auth.route'
-import commentsRouter from './features/comments/comments.route'
-import logsRouter from './features/logs/logs.route'
-import postsRouter from './features/posts/posts.route'
-import profileRouter from './features/profile/profile.route'
-import statisticsRouter from './features/statistics/statistics.route'
-import compression from 'compression'
-import cookieParser from 'cookie-parser'
-import cors from 'cors'
+import { API_PORT, API_PORT_DEFAULT, API_URL } from './constants'
+import { registerMiddlewares } from '@/helpers/app/register-middlewares.helper'
+import { registerRoutes } from '@/helpers/app/register-routes.helper'
 import express, { Request, Response, Router } from 'express'
-import helmet from 'helmet'
-import hpp from 'hpp'
 import 'module-alias/register'
-import { constants } from 'zlib'
 
 const app = express()
-app.use(helmet())
-app.use(hpp())
-app.use(compression({ level: constants.Z_BEST_SPEED }))
-app.use(cors())
-app.use(cookieParser())
-app.use(express.json())
-
 const apiRouter = Router()
-app.use('/api', apiRouter)
-app.use('/images', express.static('images'))
 
-apiRouter.use('/auth', authRouter)
-apiRouter.use('/logs', logsRouter)
-apiRouter.use('/statistic', statisticsRouter)
-apiRouter.use('/posts', postsRouter)
-apiRouter.use('/profile', profileRouter)
-apiRouter.use('/comments', commentsRouter)
+registerMiddlewares(app, apiRouter)
+registerRoutes(apiRouter)
 
 app.use((req: Request, res: Response) => {
   const method = req.method
@@ -45,4 +22,4 @@ app.use((req: Request, res: Response) => {
   })
 })
 
-app.listen(API_PORT ?? 5995, () => console.log('Server is running'))
+app.listen(API_PORT ?? API_PORT_DEFAULT, () => console.log('Server is running'))
