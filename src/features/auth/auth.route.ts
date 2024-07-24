@@ -26,6 +26,7 @@ authRouter
   .get('/identify', checkAuthMiddleware, AuthController.identify)
   .post(
     '/refresh-tokens',
+    checkAuthMiddleware,
     AuthValidation.refreshTokens,
     validationErrors,
     AuthController.refreshTokens

@@ -23,6 +23,7 @@ import { prismaClient } from '@/libs/prisma-client.lib'
 import { JwtAuthPayload, Nullable, Tokens } from '@/types'
 import bcrypt from 'bcrypt'
 import { Response } from 'express'
+import { StatusCodes } from 'http-status-codes'
 import jwt, { Secret } from 'jsonwebtoken'
 import { v4 as uuidv4 } from 'uuid'
 
@@ -40,7 +41,7 @@ export default class AuthService {
       })
 
       if (userExist) {
-        return res.status(409).json({
+        return res.status(StatusCodes.CONFLICT).json({
           message: 'User already registered'
         })
       }
@@ -65,14 +66,14 @@ export default class AuthService {
         }
       })
 
-      res.status(201).json({
+      res.status(StatusCodes.CREATED).json({
         ...userData,
         tokens
       })
     } catch (err: any) {
       logger('auth').error(`Registration: ${err.message}`)
 
-      res.status(500).json({
+      res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
         message: 'Failed to create a user'
       })
     }
@@ -83,7 +84,7 @@ export default class AuthService {
       const user = await prismaClient.user.findFirst({ where: { email: payload.email } })
 
       if (!user) {
-        return res.status(404).json({
+        return res.status(StatusCodes.NOT_FOUND).json({
           message: 'Email or password does not match'
         })
       }
@@ -91,7 +92,7 @@ export default class AuthService {
       const isValidPassword = await bcrypt.compare(payload.password, user.password)
 
       if (!isValidPassword) {
-        return res.status(403).json({
+        return res.status(StatusCodes.FORBIDDEN).json({
           message: 'Email or password does not match'
         })
       }
@@ -122,14 +123,14 @@ export default class AuthService {
         })
       }
 
-      res.status(200).json({
+      res.status(StatusCodes.OK).json({
         ...userData,
         tokens
       })
     } catch (err: any) {
       logger('auth').error(`Login: ${err.message}`)
 
-      res.status(500).json({
+      res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
         message: 'Login error'
       })
     }
@@ -142,7 +143,7 @@ export default class AuthService {
       })
 
       if (!authToken) {
-        return res.status(404).json({
+        return res.status(StatusCodes.NOT_FOUND).json({
           message: 'Auth Token not found'
         })
       }
@@ -154,11 +155,11 @@ export default class AuthService {
         }
       })
 
-      res.status(200).end()
+      res.status(StatusCodes.OK).end()
     } catch (err: any) {
       logger('auth').error(`Logout: ${err.message}`)
 
-      res.status(500).json({
+      res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
         message: 'Failed to logout'
       })
     }
@@ -172,7 +173,7 @@ export default class AuthService {
       const user = await prismaClient.user.findFirst({ where: { email: payload.email } })
 
       if (!user) {
-        return res.status(404).json({
+        return res.status(StatusCodes.NOT_FOUND).json({
           message: 'The user with this mail does not exist'
         })
       }
@@ -197,13 +198,13 @@ export default class AuthService {
         lang: payload.lang
       })
 
-      res.status(200).json({
+      res.status(StatusCodes.OK).json({
         message: 'A password recovery email was sent to your specified email address'
       })
     } catch (err: any) {
       logger('auth').error(`Reset password link: ${err.message}`)
 
-      res.status(500).json({
+      res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
         message: 'Failed to recover password'
       })
     }
@@ -217,16 +218,16 @@ export default class AuthService {
       })
 
       if (this.isTokenPasswordResetExpired(token)) {
-        return res.status(400).json({
+        return res.status(StatusCodes.BAD_REQUEST).json({
           message: 'Token invalid'
         })
       }
 
-      res.status(200).end()
+      res.status(StatusCodes.OK).end()
     } catch (err: any) {
       logger('auth').error(`Verify reset password: ${err.message}`)
 
-      return res.status(500).json({
+      return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
         message: 'Verify password token error'
       })
     }
@@ -237,7 +238,7 @@ export default class AuthService {
       const user = await prismaClient.user.findUnique({ where: { id: payload.id } })
 
       if (!user) {
-        return res.status(400).json({
+        return res.status(StatusCodes.BAD_REQUEST).json({
           message: 'Invalid user'
         })
       }
@@ -248,7 +249,7 @@ export default class AuthService {
       })
 
       if (this.isTokenPasswordResetExpired(token)) {
-        return res.status(400).json({
+        return res.status(StatusCodes.BAD_REQUEST).json({
           message: 'Token invalid'
         })
       }
@@ -264,11 +265,11 @@ export default class AuthService {
         await prismaClient.resetToken.deleteMany({ where: { user_id: user.id } })
       }
 
-      res.status(200).end()
+      res.status(StatusCodes.OK).end()
     } catch (err: any) {
       logger('auth').error(`Reset password: ${payload.id}/${payload.token}`)
 
-      res.status(500).json({
+      res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
         message: 'Password reset error'
       })
     }
@@ -281,11 +282,11 @@ export default class AuthService {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { password, ...userData } = user
 
-      res.status(200).json(userData)
+      res.status(StatusCodes.OK).json(userData)
     } catch (err: any) {
       logger('auth').error(`Identify: ${err.message}`)
 
-      res.status(401).json({
+      res.status(StatusCodes.UNAUTHORIZED).json({
         message: "You don't have access"
       })
     }
@@ -296,7 +297,7 @@ export default class AuthService {
       const verifiedRefreshToken = jwt.verify(refreshToken, JWT_REFRESH_TOKEN_SECRET as Secret)
 
       if (!verifiedRefreshToken) {
-        return res.status(401).json({
+        return res.status(StatusCodes.UNAUTHORIZED).json({
           message: 'Invalid refresh token'
         })
       }
@@ -308,7 +309,7 @@ export default class AuthService {
       })
 
       if (authToken?.refresh_token !== refreshToken) {
-        return res.status(401).json({
+        return res.status(StatusCodes.UNAUTHORIZED).json({
           message: 'Invalid refresh token'
         })
       }
@@ -319,9 +320,9 @@ export default class AuthService {
 
       const tokens = generateTokens(user?.id || '')
 
-      res.status(200).json(tokens)
+      res.status(StatusCodes.OK).json(tokens)
     } catch (err) {
-      res.status(500).json({
+      res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
         message: 'Refresh token invalid error'
       })
     }

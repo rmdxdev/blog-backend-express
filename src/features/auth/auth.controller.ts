@@ -9,6 +9,7 @@ import {
   SendPasswordLinkRequest,
   VerifyResetPasswordRequest
 } from './ts/types'
+import { DEFAULT_LANG } from '@/constants'
 import { Response } from 'express'
 
 export default class AuthController {
@@ -33,7 +34,7 @@ export default class AuthController {
 
   static sendResetPasswordLink(req: SendPasswordLinkRequest, res: Response) {
     return AuthService.sendResetPasswordLink(
-      { email: req.body.email, lang: req.headers['x-user-language'] as string },
+      { email: req.body.email, lang: (req.headers['x-user-language'] || DEFAULT_LANG) as string },
       res
     )
   }
