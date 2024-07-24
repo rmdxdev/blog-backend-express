@@ -1,5 +1,4 @@
-import { registerMiddlewares } from '@/helpers/app/register-middlewares.helper'
-import { registerRoutes } from '@/helpers/app/register-routes.helper'
+import { registerMiddlewares, registerRoutes } from '@/helpers'
 import express, { Request, Response, Router } from 'express'
 import { StatusCodes } from 'http-status-codes'
 import 'module-alias/register'
@@ -13,7 +12,7 @@ registerRoutes(apiRouter)
 
 app.use((req: Request, res: Response) => {
   const method = req.method
-  const url = `${req.originalUrl}`
+  const url = `${req.protocol}://${req.get('host')}${req.originalUrl}`
 
   res.status(StatusCodes.NOT_FOUND).json({
     error: {
