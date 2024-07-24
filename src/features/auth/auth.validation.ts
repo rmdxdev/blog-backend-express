@@ -1,4 +1,4 @@
-import { VALIDATION, VALIDATION_MESSAGES } from '@/configs/validation.config'
+import { VALIDATION, VALIDATION_MESSAGES } from '@/configs'
 import { body } from 'express-validator'
 
 export default class AuthValidation {

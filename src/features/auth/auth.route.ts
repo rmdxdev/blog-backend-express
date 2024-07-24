@@ -1,10 +1,11 @@
 import AuthController from './auth.controller'
 import AuthValidation from './auth.validation'
-import { validationErrors } from '@/helpers/validation-errors.helper'
+import { ROUTER_PARAMS } from '@/configs'
+import { validationErrors } from '@/helpers'
 import checkAuthMiddleware from '@/middlewares/access-token.middleware'
 import { Router } from 'express'
 
-const authRouter = Router({ caseSensitive: true, strict: true })
+const authRouter = Router(ROUTER_PARAMS)
 
 authRouter
   .post('/register', AuthValidation.register, validationErrors, AuthController.register)

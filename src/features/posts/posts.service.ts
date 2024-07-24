@@ -16,9 +16,7 @@ import {
   LikePostResponse,
   UpdatePostResponse
 } from './ts/types'
-import { calcPagination } from '@/helpers/calc-pagination.helper'
-import { calcTotalPages } from '@/helpers/calc-total-pages.helper'
-import { logger } from '@/helpers/logger.helper'
+import { calcPagination, calcTotalPages, logger } from '@/helpers'
 import { prismaClient } from '@/libs/prisma-client.lib'
 import { Prisma } from '@prisma/client'
 import { ReasonPhrases, StatusCodes } from 'http-status-codes'

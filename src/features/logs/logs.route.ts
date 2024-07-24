@@ -1,4 +1,4 @@
-import { ROUTER_PARAMS } from '@/configs/router-params.config'
+import { ROUTER_PARAMS } from '@/configs'
 import LogsController from '@/features/logs/logs.controller'
 import { Router } from 'express'
 

@@ -1,5 +1,5 @@
 import ProfileController from './profile.controller'
-import { ROUTER_PARAMS } from '@/configs/router-params.config'
+import { ROUTER_PARAMS } from '@/configs'
 import checkAuthMiddleware from '@/middlewares/access-token.middleware'
 import { Router } from 'express'
 

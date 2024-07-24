@@ -1,5 +1,5 @@
 import StatisticsController from './statistics.controller'
-import { ROUTER_PARAMS } from '@/configs/router-params.config'
+import { ROUTER_PARAMS } from '@/configs'
 import { Router } from 'express'
 
 const statisticsRouter = Router(ROUTER_PARAMS)

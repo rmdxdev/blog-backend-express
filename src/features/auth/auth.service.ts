@@ -15,10 +15,7 @@ import {
   VerifyResetPasswordToken
 } from './ts/types'
 import { CLIENT_URL, JWT_REFRESH_TOKEN_SECRET } from '@/constants'
-import { generateHashedPassword } from '@/helpers/generate-hashed-password.helper'
-import { generateTokens } from '@/helpers/generate-tokens.helper'
-import { logger } from '@/helpers/logger.helper'
-import { sendEmail } from '@/helpers/send-email.helper'
+import { generateHashedPassword, generateTokens, logger, sendEmail } from '@/helpers'
 import { prismaClient } from '@/libs/prisma-client.lib'
 import { JwtAuthPayload, Nullable, Tokens } from '@/types'
 import bcrypt from 'bcrypt'

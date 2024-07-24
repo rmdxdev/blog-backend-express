@@ -1,10 +1,11 @@
 import CommentsController from './comments.controller'
 import CommentsValidation from './comments.validation'
-import { validationErrors } from '@/helpers/validation-errors.helper'
+import { ROUTER_PARAMS } from '@/configs'
+import { validationErrors } from '@/helpers'
 import accessTokenMiddleware from '@/middlewares/access-token.middleware'
 import { Router } from 'express'
 
-const commentsRouter = Router({ caseSensitive: true, strict: true })
+const commentsRouter = Router(ROUTER_PARAMS)
 
 commentsRouter
   .post(

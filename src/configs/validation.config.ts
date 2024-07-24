@@ -1,4 +1,4 @@
-import { createValidationText } from '@/helpers/create-validation-text.helper'
+import { createValidationText } from '@/helpers'
 
 export const VALIDATION = {
   descMinLength: 20,

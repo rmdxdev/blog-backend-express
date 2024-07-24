@@ -1,4 +1,4 @@
-import { EMAIL_TEMPLATE_MESSAGES } from '@/configs/email.config'
+import { EMAIL_TEMPLATE_MESSAGES } from '@/configs'
 import { CLIENT_URL } from '@/constants'
 import { SendMailOptions, createTransport } from 'nodemailer'
 import hbs, { NodemailerExpressHandlebarsOptions } from 'nodemailer-express-handlebars'

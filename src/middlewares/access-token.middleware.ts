@@ -1,5 +1,4 @@
-import { getAccessTokenFromHeader } from '@/helpers/get-access-token-from-header.helper'
-import { findAuthToken, verifyAccessToken } from '@/helpers/token-actions.helper'
+import { findAuthToken, getAccessTokenFromHeader, verifyAccessToken } from '@/helpers'
 import { AuthMiddlewareRequest } from '@/types'
 import 'dotenv/config.js'
 import { NextFunction, Request, Response } from 'express'

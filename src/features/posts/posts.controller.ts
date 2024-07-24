@@ -8,7 +8,7 @@ import {
   UpdatePostRequest
 } from './ts/types'
 import { JWT_ACCESS_TOKEN_SECRET } from '@/constants'
-import { getAccessTokenFromHeader } from '@/helpers/get-access-token-from-header.helper'
+import { getAccessTokenFromHeader } from '@/helpers'
 import { JwtAuthPayload } from '@/types'
 import { Response } from 'express'
 import jwt, { Secret } from 'jsonwebtoken'
