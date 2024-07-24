@@ -1,11 +1,11 @@
-import { AuthMiddlewareRequest, SortOrder } from '@/types'
+import { AuthMiddlewareRequest, Order } from '@/types'
 
 export interface ProfileEntityQueries {
   page: string
   limit: string
   sort_by?: string
   search_text?: string
-  order?: SortOrder | string
+  order?: Order | string
 }
 
 export interface ProfileEntitiesPayload

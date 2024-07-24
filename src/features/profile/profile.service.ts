@@ -6,6 +6,7 @@ import { calcTotalPages } from '@/helpers/calc-total-pages.helper'
 import { logger } from '@/helpers/logger.helper'
 import { prismaClient } from '@/libs/prisma-client.lib'
 import { Prisma } from '@prisma/client'
+import { ReasonPhrases, StatusCodes } from 'http-status-codes'
 
 export default class ProfileService {
   private static async getProfilePosts(
@@ -49,7 +50,7 @@ export default class ProfileService {
 
       const { data, posts, pages } = await this.getProfilePosts(whereProperty, payload)
 
-      res.status(200).json({
+      res.status(StatusCodes.OK).json({
         data,
         pages,
         posts
@@ -57,8 +58,8 @@ export default class ProfileService {
     } catch (err: any) {
       logger('profile').error(`Posts: ${err.message}`)
 
-      res.status(500).json({
-        message: 'Error when receiving posts'
+      res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+        message: ReasonPhrases.INTERNAL_SERVER_ERROR
       })
     }
   }
@@ -80,7 +81,7 @@ export default class ProfileService {
 
       const { data, posts, pages } = await this.getProfilePosts(whereProperty, payload)
 
-      res.status(200).json({
+      res.status(StatusCodes.OK).json({
         data,
         pages,
         posts
@@ -89,7 +90,7 @@ export default class ProfileService {
       logger('profile').error(`Favorites: ${err.message}`)
 
       res.status(500).json({
-        message: 'Error when receiving favorites'
+        message: ReasonPhrases.INTERNAL_SERVER_ERROR
       })
     }
   }
