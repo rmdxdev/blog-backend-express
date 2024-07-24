@@ -1,9 +1,9 @@
-import { API_PORT, API_PORT_DEFAULT, API_URL } from './constants'
 import { registerMiddlewares } from '@/helpers/app/register-middlewares.helper'
 import { registerRoutes } from '@/helpers/app/register-routes.helper'
 import express, { Request, Response, Router } from 'express'
 import { StatusCodes } from 'http-status-codes'
 import 'module-alias/register'
+import { API_PORT, API_PORT_DEFAULT, API_URL } from './constants'
 
 const app = express()
 const apiRouter = Router()

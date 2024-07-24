@@ -19,7 +19,7 @@ export default async (req: Request & AuthMiddlewareRequest, res: Response, next:
     req.userId = decoded.id
 
     next()
-  } catch (error) {
+  } catch (error: any) {
     res.status(StatusCodes.UNAUTHORIZED).json({ message: error.message })
   }
 }
