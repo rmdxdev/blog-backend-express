@@ -1,3 +1,5 @@
+type Env = 'production' | 'development'
+
 declare namespace NodeJS {
   interface ProcessEnv {
     JWT_ACCESS_TOKEN: string
@@ -8,6 +10,6 @@ declare namespace NodeJS {
     SMTP_PORT: string
     SMTP_EMAIL: string
     SMTP_PASSWORD: string
-    NODE_ENV: 'production' | 'development'
+    NODE_ENV: Env
   }
 }
