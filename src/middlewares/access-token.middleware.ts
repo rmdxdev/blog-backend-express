@@ -3,14 +3,14 @@ import { findAuthToken, verifyAccessToken } from '@/helpers/token-actions.helper
 import { AuthMiddlewareRequest } from '@/types'
 import 'dotenv/config.js'
 import { NextFunction, Request, Response } from 'express'
-import { StatusCodes } from 'http-status-codes'
+import { ReasonPhrases, StatusCodes } from 'http-status-codes'
 
 export default async (req: Request & AuthMiddlewareRequest, res: Response, next: NextFunction) => {
   try {
     const accessToken = getAccessTokenFromHeader(req.headers.authorization)
 
     if (!accessToken) {
-      return res.status(StatusCodes.UNAUTHORIZED).json({ message: 'No access' })
+      return res.status(StatusCodes.UNAUTHORIZED).json({ message: ReasonPhrases.UNAUTHORIZED })
     }
 
     const decoded = verifyAccessToken(accessToken)
@@ -20,7 +20,7 @@ export default async (req: Request & AuthMiddlewareRequest, res: Response, next:
     req.userId = decoded.id
 
     next()
-  } catch (error: any) {
+  } catch (error) {
     res.status(StatusCodes.UNAUTHORIZED).json({ message: error.message })
   }
 }
