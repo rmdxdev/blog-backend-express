@@ -1,7 +1,7 @@
 import CommentsController from './comments.controller'
 import CommentsValidation from './comments.validation'
-import accessTokenMiddleware from '@/middlewares/access-token.middleware'
 import { validationErrors } from '@/helpers/validation-errors.helper'
+import accessTokenMiddleware from '@/middlewares/access-token.middleware'
 import { Router } from 'express'
 
 const commentsRouter = Router({ caseSensitive: true, strict: true })
@@ -14,7 +14,7 @@ commentsRouter
     validationErrors,
     CommentsController.create
   )
-  .patch(
+  .put(
     '/:commentId',
     accessTokenMiddleware,
     CommentsValidation.createAndUpdate,

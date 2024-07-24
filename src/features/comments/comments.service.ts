@@ -13,6 +13,7 @@ import {
 } from './ts/types'
 import { logger } from '@/helpers/logger.helper'
 import { prismaClient } from '@/libs/prisma-client.lib'
+import { StatusCodes } from 'http-status-codes'
 
 export default class CommentsService {
   static async create(payload: CreateCommentPayload, res: CommentCreateResponse) {
@@ -25,11 +26,11 @@ export default class CommentsService {
         }
       })
 
-      res.status(201).json(comment)
+      res.status(StatusCodes.CREATED).json(comment)
     } catch (err: any) {
       logger('comments').error(`Create: ${err.message}`)
 
-      res.status(500).json({
+      res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
         message: 'Failed to create a comment'
       })
     }
@@ -42,13 +43,13 @@ export default class CommentsService {
       })
 
       if (!comment) {
-        return res.status(404).json({
+        return res.status(StatusCodes.NOT_FOUND).json({
           message: 'Comment not found'
         })
       }
 
       if (comment && comment.user_id !== payload.userId) {
-        return res.status(403).json({
+        return res.status(StatusCodes.FORBIDDEN).json({
           message: 'You can not delete a comment'
         })
       }
@@ -57,11 +58,11 @@ export default class CommentsService {
         where: { id: payload.commentId }
       })
 
-      res.status(200).end()
+      res.status(StatusCodes.OK).end()
     } catch (err: any) {
       logger('comments').error(`Delete: ${err.message}`)
 
-      res.status(500).json({
+      res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
         message: 'Failed to delete a comment'
       })
     }
@@ -74,13 +75,13 @@ export default class CommentsService {
       })
 
       if (!comment) {
-        return res.status(404).json({
+        return res.status(StatusCodes.NOT_FOUND).json({
           message: 'Comment not found'
         })
       }
 
       if (comment && comment.user_id !== payload.userId) {
-        return res.status(403).json({
+        return res.status(StatusCodes.FORBIDDEN).json({
           message: 'You can not update a comment'
         })
       }
@@ -92,11 +93,11 @@ export default class CommentsService {
         }
       })
 
-      res.status(200).end()
+      res.status(StatusCodes.OK).end()
     } catch (err: any) {
       logger('comments').error(`Update: ${err.message}`)
 
-      res.status(500).json({
+      res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
         message: 'Failed to update a comment'
       })
     }
@@ -114,11 +115,11 @@ export default class CommentsService {
         }
       })
 
-      res.status(200).json(comments)
+      res.status(StatusCodes.OK).json(comments)
     } catch (err: any) {
       logger('comments').error(`Get: ${err.message}`)
 
-      res.status(500).json({
+      res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
         message: 'Failed to get comments'
       })
     }
