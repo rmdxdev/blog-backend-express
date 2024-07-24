@@ -3,7 +3,7 @@ import { registerRoutes } from '@/helpers/app/register-routes.helper'
 import express, { Request, Response, Router } from 'express'
 import { StatusCodes } from 'http-status-codes'
 import 'module-alias/register'
-import { API_PORT, API_PORT_DEFAULT, API_URL } from './constants'
+import { API_PORT, API_PORT_DEFAULT } from './constants'
 
 const app = express()
 const apiRouter = Router()
@@ -13,7 +13,7 @@ registerRoutes(apiRouter)
 
 app.use((req: Request, res: Response) => {
   const method = req.method
-  const url = `${API_URL}${req.originalUrl}`
+  const url = `${req.originalUrl}`
 
   res.status(StatusCodes.NOT_FOUND).json({
     error: {
