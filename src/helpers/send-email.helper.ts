@@ -51,7 +51,7 @@ export const sendEmail = async (data: EmailParams) => {
   })
 
   const options: EmailOptions = {
-    from: `Miracle: ${process.env.SMTP_EMAIL}`,
+    from: `Blog App: ${process.env.SMTP_EMAIL}`,
     to: data.email,
     subject: data.subject,
     template: 'email',

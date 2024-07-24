@@ -1,6 +1,7 @@
 import { JWT_ACCESS_TOKEN_SECRET } from '@/constants'
 import { prismaClient } from '@/libs/prisma-client.lib'
 import { JwtAuthPayload } from '@/types'
+import { ReasonPhrases } from 'http-status-codes'
 import jwt, { Secret } from 'jsonwebtoken'
 
 export const verifyAccessToken = (accessToken: string): JwtAuthPayload => {
@@ -17,6 +18,6 @@ export const findAuthToken = async (userId: string, accessToken: string) => {
   })
 
   if (!authToken || authToken.access_token !== accessToken) {
-    throw new Error('No access')
+    throw new Error(ReasonPhrases.UNAUTHORIZED)
   }
 }
