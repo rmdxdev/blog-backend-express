@@ -1,39 +1,47 @@
-import { validationErrors } from '@/helpers/validation-errors.helper'
 import PostsController from './posts.controller'
 import PostsValidation from './posts.validation'
+import { ROUTER_PARAMS } from '@/configs/router-params.config'
+import { uploadImages } from '@/helpers/upload-images.helper'
+import { validationErrors } from '@/helpers/validation-errors.helper'
 import checkAuthMiddleware from '@/middlewares/access-token.middleware'
 import { NextFunction, Request, Response, Router } from 'express'
+import { StatusCodes } from 'http-status-codes'
 import { MulterError } from 'multer'
 import fs from 'node:fs/promises'
 import sharp from 'sharp'
-import { uploadImages } from '@/helpers/upload-images.helper'
 
-const postsRouter = Router({ caseSensitive: true, strict: true })
+const postsRouter = Router(ROUTER_PARAMS)
 
 const uploadPostImage = (req: Request, res: Response, next: NextFunction) => {
   const upload = uploadImages.single('image')
 
   upload(req, res, async function (err) {
     if (err instanceof MulterError || err) {
-      return res.status(400).send({ message: err.message })
+      return res.status(StatusCodes.BAD_REQUEST).send({ message: '1222' })
     }
 
     if (!req.file) {
-      return res.status(400).send({ message: 'The image is empty' })
+      return res.status(StatusCodes.BAD_REQUEST).send({ message: 'The image is empty' })
     }
 
-    const fileNameWithoutType = req.file.filename.split('.')[0]
-    const imageBuffer = await fs.readFile(req.file.path)
-    const webpBuffer = await sharp(imageBuffer).webp().toBuffer()
+    try {
+      const fileNameWithoutType = req.file.filename.split('.')[0]
+      const imageBuffer = await fs.readFile(req.file.path)
+      const webpBuffer = await sharp(imageBuffer).webp().toBuffer()
 
-    await fs.unlink(req.file.path)
-    await fs.writeFile(`./images/${fileNameWithoutType}.webp`, webpBuffer)
+      await fs.unlink(req.file.path)
+      await fs.writeFile(`./images/${fileNameWithoutType}.webp`, webpBuffer)
 
-    req.file.mimetype = 'image/webp'
-    req.file.filename = `${fileNameWithoutType}.webp`
-    req.file.path = `images/${fileNameWithoutType}.webp`
+      req.file.mimetype = 'image/webp'
+      req.file.filename = `${fileNameWithoutType}.webp`
+      req.file.path = `images/${fileNameWithoutType}.webp`
 
-    next()
+      next()
+    } catch (e) {
+      return res
+        .status(StatusCodes.INTERNAL_SERVER_ERROR)
+        .send({ message: 'Error processing the image' })
+    }
   })
 }
 
@@ -49,7 +57,7 @@ postsRouter
   .get('/:postId', PostsController.getOne)
   .get('/', PostsController.getAll)
   .delete('/:postId', checkAuthMiddleware, PostsController.delete)
-  .patch(
+  .put(
     '/:postId',
     checkAuthMiddleware,
     uploadPostImage,

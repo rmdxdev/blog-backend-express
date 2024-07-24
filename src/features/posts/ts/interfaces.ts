@@ -1,4 +1,4 @@
-import { AuthMiddlewareRequest, SortOrder } from '@/types'
+import { AuthMiddlewareRequest, Order } from '@/types'
 
 export interface CreatePostData {
   title: string
@@ -17,7 +17,7 @@ export interface PostsEntityQueries {
   limit: string
   sort_by?: string
   search_text?: string
-  order?: SortOrder
+  order?: Order
 }
 
 export interface GetAllPostsPayload extends Required<PostsEntityQueries> {}

@@ -21,6 +21,7 @@ import { calcTotalPages } from '@/helpers/calc-total-pages.helper'
 import { logger } from '@/helpers/logger.helper'
 import { prismaClient } from '@/libs/prisma-client.lib'
 import { Prisma } from '@prisma/client'
+import { ReasonPhrases, StatusCodes } from 'http-status-codes'
 import fs from 'node:fs/promises'
 
 export default class PostsService {
@@ -38,11 +39,11 @@ export default class PostsService {
         select: createPostSelect
       })
 
-      res.status(201).json(post)
+      res.status(StatusCodes.CREATED).json(post)
     } catch (err: any) {
       logger('post').error(`Create: ${err.message}`)
 
-      res.status(500).json({
+      res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
         message: 'Post create error'
       })
     }
@@ -55,7 +56,7 @@ export default class PostsService {
       })
 
       if (!post) {
-        return res.status(404).json({
+        return res.status(StatusCodes.NOT_FOUND).json({
           message: 'Post not found'
         })
       }
@@ -76,10 +77,10 @@ export default class PostsService {
         await fs.unlink(post.image)
       }
 
-      res.status(200).json(updatedPost)
+      res.status(StatusCodes.OK).json(updatedPost)
     } catch (err) {
-      res.status(500).json({
-        message: 'Internal server error'
+      res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+        message: ReasonPhrases.INTERNAL_SERVER_ERROR
       })
     }
   }
@@ -91,7 +92,7 @@ export default class PostsService {
       })
 
       if (!post) {
-        return res.status(404).json({
+        return res.status(StatusCodes.NOT_FOUND).json({
           message: 'Post not found error'
         })
       }
@@ -102,11 +103,11 @@ export default class PostsService {
 
       await fs.unlink(post.image)
 
-      res.status(200).end()
+      res.status(StatusCodes.OK).end()
     } catch (err: any) {
       logger('post').error(`Delete: ${err.message}`)
 
-      res.status(500).json({
+      res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
         message: 'Post delete error'
       })
     }
@@ -128,7 +129,7 @@ export default class PostsService {
           }
         })
 
-        return res.status(200).json({ isLiked: false })
+        return res.status(StatusCodes.OK).json({ isLiked: false })
       } else {
         await prismaClient.like.create({
           data: {
@@ -137,12 +138,12 @@ export default class PostsService {
           }
         })
 
-        return res.status(201).json({ isLiked: true })
+        return res.status(StatusCodes.CREATED).json({ isLiked: true })
       }
     } catch (err: any) {
       logger('post').error(`Like: ${err.message}`)
 
-      res.status(500).json({ message: 'Like error' })
+      res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: 'Like error' })
     }
   }
 
@@ -153,7 +154,7 @@ export default class PostsService {
       })
 
       if (!post) {
-        return res.status(404).json({
+        return res.status(StatusCodes.NOT_FOUND).json({
           message: 'Post not found'
         })
       }
@@ -179,7 +180,7 @@ export default class PostsService {
         isLikedByUser = !!userLiked
       }
 
-      res.status(200).json({
+      res.status(StatusCodes.OK).json({
         ...updatedPost,
         likes: likesLength,
         isLiked: isLikedByUser
@@ -187,7 +188,7 @@ export default class PostsService {
     } catch (err: any) {
       logger('post').error(`Get one: ${err.message}`)
 
-      res.status(500).json({
+      res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
         message: 'Post server error'
       })
     }
@@ -223,7 +224,7 @@ export default class PostsService {
 
       const totalPages = calcTotalPages(totalCount, +payload.limit)
 
-      res.status(200).json({
+      res.status(StatusCodes.OK).json({
         data: posts,
         pages: totalPages,
         posts: totalCount
@@ -231,7 +232,7 @@ export default class PostsService {
     } catch (err: any) {
       logger('post').error(`Get all: ${err.message}`)
 
-      res.status(500).json({
+      res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
         message: 'Posts server error'
       })
     }
