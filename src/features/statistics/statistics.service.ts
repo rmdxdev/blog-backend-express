@@ -1,6 +1,7 @@
 import { TotalStatisticResponse } from './ts/types'
 import { logger } from '@/helpers/logger.helper'
 import { prismaClient } from '@/libs/prisma-client.lib'
+import { ReasonPhrases, StatusCodes } from 'http-status-codes'
 
 export default class StatisticsService {
   static async total(res: TotalStatisticResponse) {
@@ -15,12 +16,12 @@ export default class StatisticsService {
         views: views._sum.views || 0
       }
 
-      res.status(200).json(statisticData)
+      res.status(StatusCodes.OK).json(statisticData)
     } catch (err: any) {
       logger('statistic').error(`Total: ${err.message}`)
 
-      res.status(500).json({
-        message: 'There was an error when issuing statistic'
+      res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+        message: ReasonPhrases.INTERNAL_SERVER_ERROR
       })
     }
   }
