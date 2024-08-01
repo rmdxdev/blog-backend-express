@@ -60,6 +60,7 @@ npm run lint:fix
 
 - API_PORT - server port (default is 5995)
 - BCRYPT_SALT - password hashing salt
+- FRONTEND_URL - link to your frontend
 - DATABASE_URL - link to your database
 - JWT_ACCESS_TOKEN - secret key for access token
 - JWT_REFRESH_TOKEN - secret key for refresh token
