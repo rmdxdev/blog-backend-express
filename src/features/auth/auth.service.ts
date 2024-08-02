@@ -1,3 +1,12 @@
+import { CLIENT_URL, JWT_REFRESH_TOKEN_SECRET } from '@/constants'
+import { generateHashedPassword, generateTokens, logger, sendEmail } from '@/helpers'
+import { prismaClient } from '@/libs/prisma-client.lib'
+import { JwtAuthPayload, Nullable, Tokens } from '@/types'
+import bcrypt from 'bcrypt'
+import { Response } from 'express'
+import { StatusCodes } from 'http-status-codes'
+import jwt, { Secret } from 'jsonwebtoken'
+import { v4 as uuidv4 } from 'uuid'
 import { resetPasswordTokenSelect } from './auth.select'
 import {
   ForgotPasswordPayload,
@@ -14,19 +23,20 @@ import {
   VerifyResetPasswordResponse,
   VerifyResetPasswordToken
 } from './ts/types'
-import { CLIENT_URL, JWT_REFRESH_TOKEN_SECRET } from '@/constants'
-import { generateHashedPassword, generateTokens, logger, sendEmail } from '@/helpers'
-import { prismaClient } from '@/libs/prisma-client.lib'
-import { JwtAuthPayload, Nullable, Tokens } from '@/types'
-import bcrypt from 'bcrypt'
-import { Response } from 'express'
-import { StatusCodes } from 'http-status-codes'
-import jwt, { Secret } from 'jsonwebtoken'
-import { v4 as uuidv4 } from 'uuid'
 
 export default class AuthService {
   private static isTokenPasswordResetExpired(token: Nullable<VerifyResetPasswordToken>) {
-    return !token || (token.expires && new Date() > token.expires)
+    if (!token) {
+      return true
+    }
+
+    if (token.expires) {
+      const tokenExpiresDate = new Date(token.expires)
+
+      return new Date().getTime() > tokenExpiresDate.getTime()
+    }
+
+    return false
   }
 
   static async register(payload: RegisterData, res: AuthResponse) {
@@ -175,8 +185,8 @@ export default class AuthService {
         })
       }
 
-      const expires = new Date()
-      expires.setHours(expires.getHours() + 1)
+      const now = new Date()
+      const expires = new Date(now.getTime() + 60 * 60 * 1000)
 
       const token = await prismaClient.resetToken.create({
         data: {
@@ -240,8 +250,8 @@ export default class AuthService {
         })
       }
 
-      const token = await prismaClient.resetToken.findUnique({
-        where: { id: user?.id, token: payload.token },
+      const token = await prismaClient.resetToken.findFirst({
+        where: { user_id: user.id, token: payload.token },
         select: resetPasswordTokenSelect
       })
 
@@ -251,16 +261,14 @@ export default class AuthService {
         })
       }
 
-      if (user) {
-        const hashedPassword = await generateHashedPassword(payload.password)
+      const hashedPassword = await generateHashedPassword(payload.password)
 
-        await prismaClient.user.update({
-          where: { id: user.id },
-          data: { password: hashedPassword }
-        })
+      await prismaClient.user.update({
+        where: { id: user.id },
+        data: { password: hashedPassword }
+      })
 
-        await prismaClient.resetToken.deleteMany({ where: { user_id: user.id } })
-      }
+      await prismaClient.resetToken.deleteMany({ where: { user_id: user.id } })
 
       res.status(StatusCodes.OK).end()
     } catch (err: any) {
