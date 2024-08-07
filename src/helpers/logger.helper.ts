@@ -1,6 +1,7 @@
-import { LOGGER_TIMESTAMP_FORMAT } from '@/constants'
 import 'dotenv/config.js'
 import { Logger, createLogger, format, transports } from 'winston'
+
+const LOGGER_TIMESTAMP_FORMAT = 'D.MM.YYYY / HH:mm:ss'
 
 const logFormat = format.printf(
   ({ timestamp, level, message }) => `Date[${timestamp}] Level[${level}]: Message[${message}]`

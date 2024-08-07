@@ -1,6 +1,5 @@
 import 'dotenv/config'
 
-export const LOGGER_TIMESTAMP_FORMAT = 'D.MM.YYYY / HH:mm:ss'
 export const IMAGE_MAX_SIZE = 10240 * 1024
 
 export const JWT_ACCESS_TOKEN_SECRET = process.env.JWT_ACCESS_TOKEN
