@@ -8,8 +8,7 @@
     "build": "tsc && tsc-alias",
     "start": "node build/index.js",
     "format:fix": "prettier . --write --cache",
-    "lint:fix": "eslint --fix .",
-    "prepare": "husky"
+    "lint:fix": "eslint --fix ."
   },
   "lint-staged": {
     "*": [
