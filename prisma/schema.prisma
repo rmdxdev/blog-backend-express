@@ -8,42 +8,42 @@ datasource db {
 }
 
 model User {
-  id         String   @id @default(auto()) @map("_id") @db.ObjectId
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
 
-  username String
-  email    String
-  password String
-  image    String?
+  username    String
+  email       String
+  password    String
+  image       String?
 
-  status Status @default(DEFAULT)
+  status      Status @default(DEFAULT)
 
-  posts    Post[]
-  comments Comment[]
-  likes    Like[]
+  posts       Post[]
+  comments    Comment[]
+  likes       Like[]
 
   @@unique([username, email])
   @@map("user")
 }
 
 model Post {
-  id         String   @id @default(auto()) @map("_id") @db.ObjectId
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
 
-  title   String
-  desc    String
-  content String
-  image   String
+  title       String
+  desc        String
+  content     String
+  image       String
 
-  views Int? @default(0)
+  views       Int? @default(0)
 
-  likes Like[]
-  tags  String[] @default([])
+  likes       Like[]
+  tags        String[] @default([])
 
-  user_id String @db.ObjectId
-  user    User   @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  user_id     String @db.ObjectId
+  user        User   @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
   comments Comment[]
 
@@ -51,35 +51,35 @@ model Post {
 }
 
 model Like {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
+  id      String @id @default(auto()) @map("_id") @db.ObjectId
 
   user_id String @db.ObjectId
   post_id String @db.ObjectId
 
-  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
-  post Post @relation(fields: [post_id], references: [id], onDelete: Cascade)
+  user    User @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  post    Post @relation(fields: [post_id], references: [id], onDelete: Cascade)
 
   @@map("like")
 }
 
 model Comment {
-  id         String   @id @default(auto()) @map("_id") @db.ObjectId
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
 
-  text String
+  text        String
 
-  user_id String @db.ObjectId
-  user    User   @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  user_id     String @db.ObjectId
+  user        User   @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
-  post_id String @db.ObjectId
-  post    Post   @relation(fields: [post_id], references: [id], onDelete: Cascade)
+  post_id     String @db.ObjectId
+  post        Post   @relation(fields: [post_id], references: [id], onDelete: Cascade)
 
   @@map("comment")
 }
 
 model ResetToken {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
+  id      String @id @default(auto()) @map("_id") @db.ObjectId
 
   user_id String   @db.ObjectId
   token   String
@@ -89,7 +89,7 @@ model ResetToken {
 }
 
 model AuthToken {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
+  id            String @id @default(auto()) @map("_id") @db.ObjectId
 
   user_id       String @db.ObjectId
   access_token  String
@@ -100,8 +100,7 @@ model AuthToken {
 
 enum Status {
   DEFAULT
-  SUPER
-  PRO
+  VIP
 }
 
 enum Role {
