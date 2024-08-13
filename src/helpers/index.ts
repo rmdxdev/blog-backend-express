@@ -1,5 +1,3 @@
-export { registerMiddlewares } from './app/register-middlewares.helper'
-export { registerRoutes } from './app/register-routes.helper'
 export { calcPagination } from './calc-pagination.helper'
 export { calcTotalPages } from './calc-total-pages.helper'
 export { createValidationText } from './create-validation-text.helper'
@@ -11,3 +9,7 @@ export { sendEmail } from './send-email.helper'
 export { findAuthToken, verifyAccessToken } from './token-actions.helper'
 export { uploadImages } from './upload-images.helper'
 export { validationErrors } from './validation-errors.helper'
+
+// Should be at the bottom!
+export { registerMiddlewares } from './app/register-middlewares.helper'
+export { registerRoutes } from './app/register-routes.helper'
