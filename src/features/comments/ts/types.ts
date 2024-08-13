@@ -1,3 +1,7 @@
+import { AuthMiddlewareRequest, NotifyResponse } from '@/types'
+import { Comment, User } from '@prisma/client'
+import { Request, Response } from 'express'
+import { ParamsDictionary } from 'express-serve-static-core'
 import { commentSelect, commentUserSelect } from '../comments.select'
 import {
   CreateAndGetCommentParams,
@@ -5,10 +9,6 @@ import {
   DeleteAndUpdateCommentParams,
   GetAllCommentsQueries
 } from './interfaces'
-import { AuthMiddlewareRequest, NotifyResponse } from '@/types'
-import { Comment, User } from '@prisma/client'
-import { Request, Response } from 'express'
-import { ParamsDictionary } from 'express-serve-static-core'
 
 type ShortComment = Pick<Comment, keyof typeof commentSelect>
 type CommentUser = Pick<User, keyof typeof commentUserSelect>

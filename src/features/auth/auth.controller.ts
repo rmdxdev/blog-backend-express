@@ -1,3 +1,5 @@
+import { DEFAULT_LANG } from '@/constants'
+import { Response } from 'express'
 import AuthService from './auth.service'
 import {
   IdentifyRequest,
@@ -9,8 +11,6 @@ import {
   SendPasswordLinkRequest,
   VerifyResetPasswordRequest
 } from './ts/types'
-import { DEFAULT_LANG } from '@/constants'
-import { Response } from 'express'
 
 export default class AuthController {
   static register(req: RegisterRequest, res: Response) {

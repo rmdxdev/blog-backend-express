@@ -1,3 +1,6 @@
+import { logger } from '@/helpers'
+import { prismaClient } from '@/libs/prisma-client.lib'
+import { StatusCodes } from 'http-status-codes'
 import { commentSelect, commentUserSelect } from './comments.select'
 import {
   CreateCommentPayload,
@@ -11,9 +14,6 @@ import {
   CommentGetAllResponse,
   CommentUpdateResponse
 } from './ts/types'
-import { logger } from '@/helpers'
-import { prismaClient } from '@/libs/prisma-client.lib'
-import { StatusCodes } from 'http-status-codes'
 
 export default class CommentsService {
   static async create(payload: CreateCommentPayload, res: CommentCreateResponse) {
@@ -58,7 +58,7 @@ export default class CommentsService {
         where: { id: payload.commentId }
       })
 
-      res.status(StatusCodes.OK).end()
+      res.status(StatusCodes.OK).json({ message: 'The comment has been deleted' })
     } catch (err: any) {
       logger('comments').error(`Delete: ${err.message}`)
 
@@ -93,7 +93,7 @@ export default class CommentsService {
         }
       })
 
-      res.status(StatusCodes.OK).end()
+      res.status(StatusCodes.OK).json({ message: 'The comment has been updated' })
     } catch (err: any) {
       logger('comments').error(`Update: ${err.message}`)
 

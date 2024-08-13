@@ -1,6 +1,6 @@
-import StatisticsController from './statistics.controller'
 import { ROUTER_PARAMS } from '@/configs'
 import { Router } from 'express'
+import StatisticsController from './statistics.controller'
 
 const statisticsRouter = Router(ROUTER_PARAMS)
 

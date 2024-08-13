@@ -1,7 +1,7 @@
-import { TotalStatisticResponse } from './ts/types'
 import { logger } from '@/helpers'
 import { prismaClient } from '@/libs/prisma-client.lib'
 import { ReasonPhrases, StatusCodes } from 'http-status-codes'
+import { TotalStatisticResponse } from './ts/types'
 
 export default class StatisticsService {
   static async total(res: TotalStatisticResponse) {

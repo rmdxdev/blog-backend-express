@@ -1,10 +1,10 @@
-import { createPostSelect, getOnePostSelect, getOnePostUserSelect } from '../posts.select'
-import { CommonPostParams, CreatePostData, PostsEntityQueries } from './interfaces'
 import { postProfileSelect } from '@/features/profile/profile.select'
 import { AuthMiddlewareRequest, NotifyResponse } from '@/types'
 import { Post, User } from '@prisma/client'
 import { Request, Response } from 'express'
 import { ParamsDictionary } from 'express-serve-static-core'
+import { createPostSelect, getOnePostSelect, getOnePostUserSelect } from '../posts.select'
+import { CommonPostParams, CreatePostData, PostsEntityQueries } from './interfaces'
 
 type GetAllPost = Pick<Post, keyof typeof postProfileSelect>
 type CreatePost = Pick<Post, keyof typeof createPostSelect>

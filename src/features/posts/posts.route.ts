@@ -1,5 +1,3 @@
-import PostsController from './posts.controller'
-import PostsValidation from './posts.validation'
 import { ROUTER_PARAMS } from '@/configs'
 import { uploadImages, validationErrors } from '@/helpers'
 import checkAuthMiddleware from '@/middlewares/access-token.middleware'
@@ -8,6 +6,8 @@ import { StatusCodes } from 'http-status-codes'
 import { MulterError } from 'multer'
 import fs from 'node:fs/promises'
 import sharp from 'sharp'
+import PostsController from './posts.controller'
+import PostsValidation from './posts.validation'
 
 const postsRouter = Router(ROUTER_PARAMS)
 

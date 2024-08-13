@@ -1,8 +1,8 @@
-import { postProfileSelect } from '../profile.select'
-import { ProfileEntityQueries } from './interfaces'
 import { AuthMiddlewareRequest, NotifyResponse } from '@/types'
 import { Post } from '@prisma/client'
 import { Request, Response } from 'express'
+import { postProfileSelect } from '../profile.select'
+import { ProfileEntityQueries } from './interfaces'
 
 type ProfilePost = Pick<Post, keyof typeof postProfileSelect>
 

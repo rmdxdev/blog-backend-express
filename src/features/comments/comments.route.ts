@@ -1,9 +1,9 @@
-import CommentsController from './comments.controller'
-import CommentsValidation from './comments.validation'
 import { ROUTER_PARAMS } from '@/configs'
 import { validationErrors } from '@/helpers'
 import accessTokenMiddleware from '@/middlewares/access-token.middleware'
 import { Router } from 'express'
+import CommentsController from './comments.controller'
+import CommentsValidation from './comments.validation'
 
 const commentsRouter = Router(ROUTER_PARAMS)
 

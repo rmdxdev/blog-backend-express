@@ -1,3 +1,4 @@
+import { Response } from 'express'
 import CommentsService from './comments.service'
 import {
   CommentCreateRequest,
@@ -5,7 +6,6 @@ import {
   CommentGetAllRequest,
   CommentUpdateRequest
 } from './ts/types'
-import { Response } from 'express'
 
 export default class CommentsController {
   static create(req: CommentCreateRequest, res: Response) {

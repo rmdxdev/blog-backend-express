@@ -1,7 +1,7 @@
-import ProfileController from './profile.controller'
 import { ROUTER_PARAMS } from '@/configs'
 import checkAuthMiddleware from '@/middlewares/access-token.middleware'
 import { Router } from 'express'
+import ProfileController from './profile.controller'
 
 const profileRouter = Router(ROUTER_PARAMS)
 

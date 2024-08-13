@@ -1,3 +1,8 @@
+import { JWT_ACCESS_TOKEN_SECRET } from '@/constants'
+import { getAccessTokenFromHeader } from '@/helpers'
+import { JwtAuthPayload } from '@/types'
+import { Response } from 'express'
+import jwt, { Secret } from 'jsonwebtoken'
 import PostsService from './posts.service'
 import {
   CreatePostRequest,
@@ -7,11 +12,6 @@ import {
   LikeRequest,
   UpdatePostRequest
 } from './ts/types'
-import { JWT_ACCESS_TOKEN_SECRET } from '@/constants'
-import { getAccessTokenFromHeader } from '@/helpers'
-import { JwtAuthPayload } from '@/types'
-import { Response } from 'express'
-import jwt, { Secret } from 'jsonwebtoken'
 
 export default class PostsController {
   static create(req: CreatePostRequest, res: Response) {

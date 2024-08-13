@@ -1,3 +1,8 @@
+import { calcPagination, calcTotalPages, logger } from '@/helpers'
+import { prismaClient } from '@/libs/prisma-client.lib'
+import { Prisma } from '@prisma/client'
+import { ReasonPhrases, StatusCodes } from 'http-status-codes'
+import fs from 'node:fs/promises'
 import { postProfileSelect, postProfileUserSelect } from '../profile/profile.select'
 import { createPostSelect, getOnePostSelect, getOnePostUserSelect } from './posts.select'
 import {
@@ -16,11 +21,6 @@ import {
   LikePostResponse,
   UpdatePostResponse
 } from './ts/types'
-import { calcPagination, calcTotalPages, logger } from '@/helpers'
-import { prismaClient } from '@/libs/prisma-client.lib'
-import { Prisma } from '@prisma/client'
-import { ReasonPhrases, StatusCodes } from 'http-status-codes'
-import fs from 'node:fs/promises'
 
 export default class PostsService {
   static async create(payload: CreatePostPayload, res: CreatePostResponse) {
@@ -101,7 +101,7 @@ export default class PostsService {
 
       await fs.unlink(post.image)
 
-      res.status(StatusCodes.OK).end()
+      res.status(StatusCodes.OK).json({ message: 'The post was successfully deleted' })
     } catch (err: any) {
       logger('post').error(`Delete: ${err.message}`)
 
@@ -158,7 +158,9 @@ export default class PostsService {
       }
 
       let isLikedByUser = false
+
       const likesLength = await prismaClient.like.count()
+
       const updatedPost = await prismaClient.post.update({
         where: { id: payload.postId },
         data: {

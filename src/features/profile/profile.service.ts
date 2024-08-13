@@ -1,10 +1,10 @@
-import { postProfileSelect, postProfileUserSelect } from './profile.select'
-import { ProfileEntitiesPayload } from './ts/interfaces'
-import { ProfileEntitiesResponse } from './ts/types'
 import { calcPagination, calcTotalPages, logger } from '@/helpers'
 import { prismaClient } from '@/libs/prisma-client.lib'
 import { Prisma } from '@prisma/client'
 import { ReasonPhrases, StatusCodes } from 'http-status-codes'
+import { postProfileSelect, postProfileUserSelect } from './profile.select'
+import { ProfileEntitiesPayload } from './ts/interfaces'
+import { ProfileEntitiesResponse } from './ts/types'
 
 export default class ProfileService {
   private static async getProfilePosts(

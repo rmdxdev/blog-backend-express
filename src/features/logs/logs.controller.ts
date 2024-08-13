@@ -1,9 +1,8 @@
+import { LogRequest, LogResponse } from '@/features/logs/ts/types'
 import LogsService from './logs.service'
-import { LogRequest } from '@/features/logs/ts/types'
-import { Response } from 'express'
 
 export default class LogsController {
-  static notFound(req: LogRequest, res: Response) {
+  static notFound(req: LogRequest, res: LogResponse) {
     return LogsService.notFound(req.body.link, res)
   }
 }

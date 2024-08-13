@@ -18,6 +18,7 @@ import {
 import {
   AuthResponse,
   IdentifyResponse,
+  LogoutResponse,
   ResetPasswordResponse,
   SendPasswordLinkResponse,
   VerifyResetPasswordResponse,
@@ -26,9 +27,7 @@ import {
 
 export default class AuthService {
   private static isTokenPasswordResetExpired(token: Nullable<VerifyResetPasswordToken>) {
-    if (!token) {
-      return true
-    }
+    if (!token) return true
 
     if (token.expires) {
       const tokenExpiresDate = new Date(token.expires)
@@ -143,7 +142,7 @@ export default class AuthService {
     }
   }
 
-  static async logout(userId: string, res: Response) {
+  static async logout(userId: string, res: LogoutResponse) {
     try {
       const authToken = await prismaClient.authToken.findFirst({
         where: { user_id: userId }
@@ -162,7 +161,9 @@ export default class AuthService {
         }
       })
 
-      res.status(StatusCodes.OK).end()
+      res.status(StatusCodes.OK).json({
+        message: 'There was a successful logout'
+      })
     } catch (err: any) {
       logger('auth').error(`Logout: ${err.message}`)
 
@@ -230,7 +231,7 @@ export default class AuthService {
         })
       }
 
-      res.status(StatusCodes.OK).end()
+      res.status(StatusCodes.OK).json({ message: 'The token has been verified' })
     } catch (err: any) {
       logger('auth').error(`Verify reset password: ${err.message}`)
 
@@ -270,7 +271,7 @@ export default class AuthService {
 
       await prismaClient.resetToken.deleteMany({ where: { user_id: user.id } })
 
-      res.status(StatusCodes.OK).end()
+      res.status(StatusCodes.OK).json({ message: 'The password has been successfully reset' })
     } catch (err: any) {
       logger('auth').error(`Reset password: ${payload.id}/${payload.token}`)
 
@@ -326,7 +327,9 @@ export default class AuthService {
       const tokens = generateTokens(user?.id || '')
 
       res.status(StatusCodes.OK).json(tokens)
-    } catch (err) {
+    } catch (err: any) {
+      logger('auth').error(`Refresh Tokens: ${err.message}`)
+
       res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
         message: 'Refresh token invalid error'
       })

@@ -1,6 +1,6 @@
+import { Response } from 'express'
 import ProfileService from './profile.service'
 import { ProfileEntitiesRequest } from './ts/types'
-import { Response } from 'express'
 
 export default class ProfileController {
   static handleEntitiesRequest(

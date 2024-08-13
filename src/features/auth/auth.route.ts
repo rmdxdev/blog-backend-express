@@ -1,9 +1,9 @@
-import AuthController from './auth.controller'
-import AuthValidation from './auth.validation'
 import { ROUTER_PARAMS } from '@/configs'
 import { validationErrors } from '@/helpers'
 import checkAuthMiddleware from '@/middlewares/access-token.middleware'
 import { Router } from 'express'
+import AuthController from './auth.controller'
+import AuthValidation from './auth.validation'
 
 const authRouter = Router(ROUTER_PARAMS)
 

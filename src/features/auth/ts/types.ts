@@ -1,3 +1,7 @@
+import { AuthMiddlewareRequest, NotifyResponse, Tokens } from '@/types'
+import { ResetToken, User } from '@prisma/client'
+import { Request, Response } from 'express'
+import { ParamsDictionary } from 'express-serve-static-core'
 import { resetPasswordTokenSelect } from './../auth.select'
 import {
   LoginData,
@@ -7,10 +11,6 @@ import {
   ResetPasswordParams,
   SendResetLinkData
 } from './interfaces'
-import { AuthMiddlewareRequest, NotifyResponse, Tokens } from '@/types'
-import { ResetToken, User } from '@prisma/client'
-import { Request, Response } from 'express'
-import { ParamsDictionary } from 'express-serve-static-core'
 
 type PublicUser = Omit<User, 'password'>
 type Auth = PublicUser & { tokens: Tokens }
@@ -31,6 +31,7 @@ export type IdentifyRequest = Request & AuthMiddlewareRequest
 export type RefreshTokensRequest = Request<any, any, RefreshTokensData>
 
 export type AuthResponse = Response<Auth | NotifyResponse>
+export type LogoutResponse = Response<NotifyResponse>
 export type SendPasswordLinkResponse = Response<NotifyResponse>
 export type VerifyResetPasswordResponse = Response<NotifyResponse>
 export type ResetPasswordResponse = Response<NotifyResponse>
