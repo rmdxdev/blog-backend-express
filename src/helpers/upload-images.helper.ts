@@ -17,6 +17,7 @@ const storage = multer.diskStorage({
   filename(_, file, cb) {
     const uniqueSuffix = uuidv4()
     const extname = path.extname(file.originalname)
+
     cb(null, uniqueSuffix + extname)
   }
 })
