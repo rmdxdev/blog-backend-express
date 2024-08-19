@@ -9,6 +9,11 @@ export const BCRYPT_SALT = process.env.BCRYPT_SALT
 
 export const DEFAULT_LANG = 'ru'
 
+
+
+
+
+
 export const API_PORT = process.env.API_PORT
 
 export const CLIENT_URL = process.env.FRONTEND_URL
