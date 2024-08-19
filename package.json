@@ -8,19 +8,15 @@
     "build": "tsc && tsc-alias",
     "start": "cross-env NODE_ENV=production node build/index.js",
     "format:fix": "prettier . --write --cache",
-    "lint:fix": "eslint --fix ."
+    "lint:fix": "eslint --fix .",
+    "prepare": "husky",
+    "lint-staged": "lint-staged"
   },
   "lint-staged": {
     "*": [
       "npm run format:fix",
-      "npm run lint:fix",
-      "git add"
+      "npm run lint:fix"
     ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
   },
   "_moduleAliases": {
     "@": "src"
@@ -43,6 +39,7 @@
     "nodemailer-express-handlebars": "^6.1.0",
     "prisma": "^5.7.0",
     "sharp": "^0.33.0",
+    "socket.io": "^4.7.5",
     "uuid": "^9.0.1",
     "winston": "^3.10.0"
   },
