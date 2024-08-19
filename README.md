@@ -1,4 +1,4 @@
-<h1 align="center">Blog API</h1>
+<h1 align="center">Blog API (Express)</h1>
 
 <p align="center">
     An API for my pet project, covering a wide range <br> of functionality used in real web applications.
@@ -6,8 +6,8 @@
 
 <div align="center">
     <a href="#">Swagger doc (soon)</a> ·
-    <a href="https://github.com/rmdxdev/miracle-api/issues">Report bug</a> ·
-    <a href="https://github.com/rmdxdev/miracle-api/issues">Request feature</a>
+    <a href="https://github.com/rmdxdev/blog-backend-express/issues">Report bug</a> ·
+    <a href="https://github.com/rmdxdev/blog-backend-express/issues">Request feature</a>
 </div>
 
 ### ⚡ Features
@@ -75,10 +75,10 @@ npm run lint:fix
 
 ```
 # Clone repo
-git clone https://github.com/rmdxdev/blog-app-api.git
+git clone https://github.com/rmdxdev/blog-backend-express.git
 
 # Go to the directory
-cd blog-app-api
+cd blog-backend-express
 
 # Create a branch with your feature
 git checkout -b your-feature
@@ -94,4 +94,4 @@ git push origin your-feature
 
 ---
 
-Miracle API is licensed under the MIT license.
+Blog API (Express) is licensed under the MIT license.
