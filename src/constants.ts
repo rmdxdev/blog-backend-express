@@ -11,7 +11,4 @@ export const DEFAULT_LANG = 'ru'
 
 export const API_PORT = process.env.API_PORT
 
-const my = 123
-console.log(my)
-
 export const CLIENT_URL = process.env.FRONTEND_URL
