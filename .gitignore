@@ -3,8 +3,6 @@
 build
 /logs
 /images
-_FILES.md
-
 
 # Logs
 *.log
