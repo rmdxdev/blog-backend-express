@@ -11,18 +11,18 @@ import {
   GetOnePostRequest,
   LikeRequest,
   UpdatePostRequest
-} from './ts/types'
+} from './types'
 
 export default class PostsController {
   static create(req: CreatePostRequest, res: Response) {
     return PostsService.create(
       {
-        image: `images/${req.file?.filename}`,
-        title: req.body.title,
         desc: req.body.desc,
         tags: req.body.tags,
+        title: req.body.title,
+        userId: req.userId ?? '',
         content: req.body.content,
-        userId: req.userId ?? ''
+        image: `images/${req.file?.filename}`
       },
       res
     )
@@ -31,8 +31,8 @@ export default class PostsController {
   static delete(req: DeletePostRequest, res: Response) {
     return PostsService.delete(
       {
-        postId: req.params.postId,
-        userId: req.userId ?? ''
+        userId: req.userId ?? '',
+        postId: req.params.postId
       },
       res
     )
@@ -41,13 +41,13 @@ export default class PostsController {
   static update(req: UpdatePostRequest, res: Response) {
     return PostsService.update(
       {
-        image: `images/${req.file?.filename}`,
-        title: req.body.title,
         desc: req.body.desc,
         tags: req.body.tags,
+        title: req.body.title,
+        userId: req.userId ?? '',
         content: req.body.content,
         postId: req.params.postId,
-        userId: req.userId ?? ''
+        image: `images/${req.file?.filename}`
       },
       res
     )
@@ -74,8 +74,8 @@ export default class PostsController {
 
     return PostsService.getOne(
       {
-        postId: req.params.postId,
-        userId: tokenResult
+        userId: tokenResult,
+        postId: req.params.postId
       },
       res
     )
@@ -87,8 +87,8 @@ export default class PostsController {
         page: req.query.page ?? 1,
         limit: req.query.limit ?? 10,
         sort_by: req.query.sort_by ?? 'date',
-        order: req.query.order === 'asc' ? 'asc' : 'desc',
-        search_text: req.query.search_text || ''
+        search_text: req.query.search_text || '',
+        order: req.query.order === 'asc' ? 'asc' : 'desc'
       },
       res
     )

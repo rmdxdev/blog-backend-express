@@ -10,7 +10,7 @@ import {
   ResetPasswordRequest,
   SendPasswordLinkRequest,
   VerifyResetPasswordRequest
-} from './ts/types'
+} from './types'
 
 export default class AuthController {
   static register(req: RegisterRequest, res: Response) {

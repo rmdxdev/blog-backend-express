@@ -5,10 +5,10 @@ import hbs, { NodemailerExpressHandlebarsOptions } from 'nodemailer-express-hand
 import * as path from 'path'
 
 interface EmailParams {
-  email: string
-  subject: string
   body: string
   lang: string
+  email: string
+  subject: string
 }
 
 interface EmailOptions extends SendMailOptions {
@@ -21,9 +21,9 @@ interface EmailOptions extends SendMailOptions {
 }
 
 interface EmailMessages {
-  reset_password: string
   desc: string
   rights: string
+  reset_password: string
 }
 
 export type EmailTemplateMessages = Record<string, EmailMessages>
@@ -32,8 +32,8 @@ const viewsFolderPath = path.resolve(__dirname, '../views')
 const handlebarOptions: NodemailerExpressHandlebarsOptions = {
   viewEngine: {
     extname: '.view.hbs',
-    partialsDir: viewsFolderPath,
-    defaultLayout: false
+    defaultLayout: false,
+    partialsDir: viewsFolderPath
   },
   extName: '.view.hbs',
   viewPath: viewsFolderPath
@@ -41,9 +41,9 @@ const handlebarOptions: NodemailerExpressHandlebarsOptions = {
 
 export const sendEmail = async (data: EmailParams) => {
   const transporter = createTransport({
-    service: String(process.env.SMTP_SERVICE),
-    port: Number(process.env.SMTP_PORT),
     secure: false,
+    port: Number(process.env.SMTP_PORT),
+    service: String(process.env.SMTP_SERVICE),
     auth: {
       user: String(process.env.SMTP_EMAIL),
       pass: String(process.env.SMTP_PASSWORD)
@@ -51,17 +51,17 @@ export const sendEmail = async (data: EmailParams) => {
   })
 
   const options: EmailOptions = {
-    from: `Blog App: ${process.env.SMTP_EMAIL}`,
     to: data.email,
-    subject: data.subject,
     template: 'email',
+    subject: data.subject,
+    from: `Blog App: ${process.env.SMTP_EMAIL}`,
     context: {
       url: CLIENT_URL,
       link: data.body,
       messages: {
-        reset_password: EMAIL_TEMPLATE_MESSAGES[data.lang].reset_password,
         desc: EMAIL_TEMPLATE_MESSAGES[data.lang].desc,
-        rights: EMAIL_TEMPLATE_MESSAGES[data.lang].rights
+        rights: EMAIL_TEMPLATE_MESSAGES[data.lang].rights,
+        reset_password: EMAIL_TEMPLATE_MESSAGES[data.lang].reset_password
       }
     }
   }

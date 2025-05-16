@@ -9,21 +9,19 @@ import jwt, { Secret } from 'jsonwebtoken'
 import { v4 as uuidv4 } from 'uuid'
 import { resetPasswordTokenSelect } from './auth.select'
 import {
+  AuthResponse,
   ForgotPasswordPayload,
+  IdentifyResponse,
   LoginData,
+  LogoutResponse,
   RegisterData,
   ResetPasswordParams,
-  ResetPasswordPayload
-} from './ts/interfaces'
-import {
-  AuthResponse,
-  IdentifyResponse,
-  LogoutResponse,
+  ResetPasswordPayload,
   ResetPasswordResponse,
   SendPasswordLinkResponse,
   VerifyResetPasswordResponse,
   VerifyResetPasswordToken
-} from './ts/types'
+} from './types'
 
 export default class AuthService {
   private static isTokenPasswordResetExpired(token: Nullable<VerifyResetPasswordToken>) {
@@ -67,8 +65,8 @@ export default class AuthService {
 
       await prismaClient.authToken.create({
         data: {
-          user_id: user.id,
-          ...tokens
+          ...tokens,
+          user_id: user.id
         }
       })
 
@@ -200,10 +198,10 @@ export default class AuthService {
       const url = `${CLIENT_URL}/reset-password/${user.id}/${token.token}`
 
       await sendEmail({
-        email: user.email,
-        subject: 'Password Reset',
         body: url,
-        lang: payload.lang
+        email: user.email,
+        lang: payload.lang,
+        subject: 'Password Reset'
       })
 
       res.status(StatusCodes.OK).json({

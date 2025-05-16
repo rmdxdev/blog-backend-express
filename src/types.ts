@@ -1,8 +1,7 @@
 import { JwtPayload } from 'jsonwebtoken'
 
-export type Nullable<T> = T | null
-
 export type Order = 'asc' | 'desc'
+export type Nullable<T> = T | null
 
 export interface AuthMiddlewareRequest {
   userId?: string

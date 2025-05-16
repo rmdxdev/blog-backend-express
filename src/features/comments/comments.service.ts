@@ -3,17 +3,15 @@ import { prismaClient } from '@/libs/prisma-client.lib'
 import { StatusCodes } from 'http-status-codes'
 import { commentSelect, commentUserSelect } from './comments.select'
 import {
+  CommentCreateResponse,
+  CommentDeleteResponse,
+  CommentGetAllResponse,
+  CommentUpdateResponse,
   CreateCommentPayload,
   DeleteCommentPayload,
   GetAllCommentsPayload,
   UpdateCommentPayload
-} from './ts/interfaces'
-import {
-  CommentCreateResponse,
-  CommentDeleteResponse,
-  CommentGetAllResponse,
-  CommentUpdateResponse
-} from './ts/types'
+} from './types'
 
 export default class CommentsService {
   static async create(payload: CreateCommentPayload, res: CommentCreateResponse) {

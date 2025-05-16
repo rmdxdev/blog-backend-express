@@ -1,7 +1,6 @@
-import { LogData } from '@/features/logs/ts/interfaces'
 import { logger } from '@/helpers'
 import { StatusCodes } from 'http-status-codes'
-import { LogResponse } from './ts/types'
+import { LogData, LogResponse } from './types'
 
 export default class LogsService {
   static notFound(link: LogData['link'], res: LogResponse) {

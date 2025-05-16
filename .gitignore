@@ -1,7 +1,10 @@
 ## Project folders
+.env
+build
 /logs
 /images
-build
+_FILES.md
+
 
 # Logs
 *.log
@@ -11,21 +14,19 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
 dist
-dist-ssr
 *.local
+dist-ssr
+node_modules
 
 # Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
-.DS_Store
-*.suo
-*.ntvs*
-*.njsproj
 *.sln
 *.sw?
-
-_FILES.md
-.env
+.idea
+*.suo
+*.ntvs*
+.history
+*.njsproj
+.DS_Store
+.vscode/*
+!.vscode/extensions.json

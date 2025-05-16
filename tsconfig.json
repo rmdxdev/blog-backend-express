@@ -1,18 +1,18 @@
 {
   "compilerOptions": {
-    "target": "es6",
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
-    "sourceMap": false,
-    "outDir": "./build",
-    "rootDir": "./src",
+    "baseUrl": ".",
     "strict": true,
-    "strictPropertyInitialization": true,
+    "target": "es6",
+    "sourceMap": false,
+    "rootDir": "./src",
+    "outDir": "./build",
+    "module": "NodeNext",
+    "skipLibCheck": true,
     "noImplicitAny": true,
     "esModuleInterop": true,
-    "skipLibCheck": true,
+    "moduleResolution": "NodeNext",
+    "strictPropertyInitialization": true,
     "forceConsistentCasingInFileNames": true,
-    "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
     }

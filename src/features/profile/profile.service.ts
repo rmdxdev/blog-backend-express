@@ -3,8 +3,7 @@ import { prismaClient } from '@/libs/prisma-client.lib'
 import { Prisma } from '@prisma/client'
 import { ReasonPhrases, StatusCodes } from 'http-status-codes'
 import { postProfileSelect, postProfileUserSelect } from './profile.select'
-import { ProfileEntitiesPayload } from './ts/interfaces'
-import { ProfileEntitiesResponse } from './ts/types'
+import { ProfileEntitiesPayload, ProfileEntitiesResponse } from './types'
 
 export default class ProfileService {
   private static async getProfilePosts(
@@ -41,18 +40,14 @@ export default class ProfileService {
       const whereProperty: Prisma.PostWhereInput = {
         user_id: payload.userId,
         title: {
-          contains: payload.search_text,
-          mode: 'insensitive'
+          mode: 'insensitive',
+          contains: payload.search_text
         }
       }
 
-      const { data, posts, pages } = await this.getProfilePosts(whereProperty, payload)
+      const postsData = await this.getProfilePosts(whereProperty, payload)
 
-      res.status(StatusCodes.OK).json({
-        data,
-        pages,
-        posts
-      })
+      res.status(StatusCodes.OK).json(postsData)
     } catch (err: any) {
       logger('profile').error(`Posts: ${err.message}`)
 
@@ -72,18 +67,14 @@ export default class ProfileService {
         },
         user_id: payload.userId,
         title: {
-          contains: payload.search_text,
-          mode: 'insensitive'
+          mode: 'insensitive',
+          contains: payload.search_text
         }
       }
 
-      const { data, posts, pages } = await this.getProfilePosts(whereProperty, payload)
+      const postsData = await this.getProfilePosts(whereProperty, payload)
 
-      res.status(StatusCodes.OK).json({
-        data,
-        pages,
-        posts
-      })
+      res.status(StatusCodes.OK).json(postsData)
     } catch (err: any) {
       logger('profile').error(`Favorites: ${err.message}`)
 

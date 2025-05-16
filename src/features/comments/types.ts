@@ -2,13 +2,7 @@ import { AuthMiddlewareRequest, NotifyResponse } from '@/types'
 import { Comment, User } from '@prisma/client'
 import { Request, Response } from 'express'
 import { ParamsDictionary } from 'express-serve-static-core'
-import { commentSelect, commentUserSelect } from '../comments.select'
-import {
-  CreateAndGetCommentParams,
-  CreateAndUpdateCommentData,
-  DeleteAndUpdateCommentParams,
-  GetAllCommentsQueries
-} from './interfaces'
+import { commentSelect, commentUserSelect } from './comments.select'
 
 type ShortComment = Pick<Comment, keyof typeof commentSelect>
 type CommentUser = Pick<User, keyof typeof commentUserSelect>
@@ -43,3 +37,38 @@ export type CommentDeleteResponse = Response<NotifyResponse>
 export type CommentGetAllResponse = Response<
   (ShortComment & { user: CommentUser })[] | NotifyResponse
 >
+
+export interface CreateAndUpdateCommentData {
+  text: string
+}
+
+export interface DeleteAndUpdateCommentParams {
+  commentId: string
+}
+
+export interface CreateAndGetCommentParams {
+  postId: string
+}
+
+export interface GetAllCommentsQueries {
+  limit: string
+  offset: string
+}
+
+export interface DeleteCommentPayload
+  extends Required<AuthMiddlewareRequest>,
+    DeleteAndUpdateCommentParams {}
+
+export interface CreateCommentPayload
+  extends Required<AuthMiddlewareRequest>,
+    CreateAndGetCommentParams,
+    CreateAndUpdateCommentData {}
+
+export interface UpdateCommentPayload
+  extends Required<AuthMiddlewareRequest>,
+    DeleteAndUpdateCommentParams,
+    CreateAndUpdateCommentData {}
+
+export interface UpdateCommentPayload extends Required<AuthMiddlewareRequest> {}
+
+export interface GetAllCommentsPayload extends CreateAndGetCommentParams, GetAllCommentsQueries {}

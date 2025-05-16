@@ -1,6 +1,6 @@
 import { Response } from 'express'
 import ProfileService from './profile.service'
-import { ProfileEntitiesRequest } from './ts/types'
+import { ProfileEntitiesRequest } from './types'
 
 export default class ProfileController {
   static handleEntitiesRequest(
@@ -10,12 +10,12 @@ export default class ProfileController {
   ) {
     return ProfileService[method](
       {
+        userId: req.userId ?? '',
         page: req.query.page ?? 1,
         limit: req.query.limit ?? 10,
         sort_by: req.query.sort_by ?? 'date',
-        order: req.query.order === 'asc' ? 'asc' : 'desc',
         search_text: req.query.search_text || '',
-        userId: req.userId ?? ''
+        order: req.query.order === 'asc' ? 'asc' : 'desc'
       },
       res
     )

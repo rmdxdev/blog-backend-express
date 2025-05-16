@@ -17,6 +17,7 @@ model User {
   password    String
   image       String?
 
+  role        Role @default(USER)
   status      Status @default(DEFAULT)
 
   posts       Post[]
@@ -99,12 +100,13 @@ model AuthToken {
 }
 
 enum Status {
-  DEFAULT
   VIP
+  PRO
+  DEFAULT
 }
 
 enum Role {
   USER
-  MODERATOR
   ADMIN
+  MODERATOR
 }

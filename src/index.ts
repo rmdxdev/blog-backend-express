@@ -15,8 +15,8 @@ app.use((req: Request, res: Response) => {
 
   res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
     error: {
-      message: `Unsupported ${req.method} request. Make sure you're making the request correctly`,
-      request_url: url
+      request_url: url,
+      message: `Unsupported ${req.method} request. Make sure you're making the request correctly`
     }
   })
 })

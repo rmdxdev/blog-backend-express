@@ -1,0 +1,64 @@
+import { AuthMiddlewareRequest, NotifyResponse, Tokens } from '@/types'
+import { ResetToken, User } from '@prisma/client'
+import { Request, Response } from 'express'
+import { ParamsDictionary } from 'express-serve-static-core'
+import { resetPasswordTokenSelect } from './auth.select'
+
+type PublicUser = Omit<User, 'password'>
+type Auth = PublicUser & { tokens: Tokens }
+
+export type VerifyResetPasswordToken = Pick<ResetToken, keyof typeof resetPasswordTokenSelect>
+
+export type LoginRequest = Request<any, any, LoginData>
+export type LogoutRequest = Request & AuthMiddlewareRequest
+export type RegisterRequest = Request<any, any, RegisterData>
+export type IdentifyRequest = Request & AuthMiddlewareRequest
+export type RefreshTokensRequest = Request<any, any, RefreshTokensData>
+export type SendPasswordLinkRequest = Request<any, any, SendResetLinkData>
+export type VerifyResetPasswordRequest = Request<ResetPasswordParams, any, ResetPasswordData>
+export type ResetPasswordRequest = Request<
+  ResetPasswordParams & ParamsDictionary,
+  any,
+  ResetPasswordData
+>
+
+export type LogoutResponse = Response<NotifyResponse>
+export type AuthResponse = Response<Auth | NotifyResponse>
+export type ResetPasswordResponse = Response<NotifyResponse>
+export type SendPasswordLinkResponse = Response<NotifyResponse>
+export type VerifyResetPasswordResponse = Response<NotifyResponse>
+export type IdentifyResponse = Response<PublicUser | NotifyResponse>
+
+export interface RegisterData {
+  email: string
+  username: string
+  password: string
+}
+
+export interface LoginData {
+  email: string
+  password: string
+}
+
+export interface SendResetLinkData {
+  email: string
+}
+
+export interface ResetPasswordData {
+  password: string
+}
+
+export interface ResetPasswordParams {
+  id: string
+  token: string
+}
+
+export interface ForgotPasswordPayload extends SendResetLinkData {
+  lang: string
+}
+
+export interface RefreshTokensData {
+  refresh_token: string
+}
+
+export interface ResetPasswordPayload extends ResetPasswordParams, ResetPasswordData {}

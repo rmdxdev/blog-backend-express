@@ -5,7 +5,7 @@ import {
   CommentDeleteRequest,
   CommentGetAllRequest,
   CommentUpdateRequest
-} from './ts/types'
+} from './types'
 
 export default class CommentsController {
   static create(req: CommentCreateRequest, res: Response) {
@@ -28,9 +28,9 @@ export default class CommentsController {
   static update(req: CommentUpdateRequest, res: Response) {
     return CommentsService.update(
       {
+        text: req.body.text,
         userId: req.userId ?? '',
-        commentId: req.params.commentId,
-        text: req.body.text
+        commentId: req.params.commentId
       },
       res
     )
@@ -40,8 +40,8 @@ export default class CommentsController {
     return CommentsService.getAll(
       {
         postId: req.params.postId,
-        offset: req.query.offset ?? 0,
-        limit: req.query.limit ?? 10
+        limit: req.query.limit ?? 10,
+        offset: req.query.offset ?? 0
       },
       res
     )

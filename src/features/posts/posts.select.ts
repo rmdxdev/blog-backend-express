@@ -4,22 +4,22 @@ export const createPostSelect = {
 
 export const getOnePostSelect = {
   id: true,
-  created_at: true,
-  updated_at: true,
+  desc: true,
+  tags: true,
   image: true,
   title: true,
-  content: true,
   views: true,
-  desc: true,
-  tags: true
+  content: true,
+  created_at: true,
+  updated_at: true
 }
 
 export const getOnePostUserSelect = {
   id: true,
-  created_at: true,
-  updated_at: true,
-  username: true,
   email: true,
   image: true,
-  status: true
+  status: true,
+  username: true,
+  created_at: true,
+  updated_at: true
 }

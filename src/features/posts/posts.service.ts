@@ -7,30 +7,28 @@ import { postProfileSelect, postProfileUserSelect } from '../profile/profile.sel
 import { createPostSelect, getOnePostSelect, getOnePostUserSelect } from './posts.select'
 import {
   CreatePostPayload,
-  DeletePostPayload,
-  GetAllPostsPayload,
-  GetOnePostPayload,
-  LikesPayload,
-  UpdatePostPayload
-} from './ts/interfaces'
-import {
   CreatePostResponse,
+  DeletePostPayload,
   DeletePostResponse,
+  GetAllPostsPayload,
   GetAllPostsResponse,
+  GetOnePostPayload,
   GetOnePostResponse,
   LikePostResponse,
+  LikesPayload,
+  UpdatePostPayload,
   UpdatePostResponse
-} from './ts/types'
+} from './types'
 
 export default class PostsService {
   static async create(payload: CreatePostPayload, res: CreatePostResponse) {
     try {
       const post = await prismaClient.post.create({
         data: {
-          image: payload.image,
-          title: payload.title,
           desc: payload.desc,
           tags: payload.tags,
+          image: payload.image,
+          title: payload.title,
           content: payload.content,
           user_id: payload.userId
         },
@@ -62,11 +60,11 @@ export default class PostsService {
       const updatedPost = await prismaClient.post.update({
         where: { id: payload.postId, user_id: payload.userId },
         data: {
+          desc: payload.desc || post.desc,
+          tags: payload.tags || post.tags,
           image: payload.image || post.image,
           title: payload.title || post.title,
-          desc: payload.desc || post.desc,
-          content: payload.content || post.content,
-          tags: payload.tags || post.tags
+          content: payload.content || post.content
         },
         select: createPostSelect
       })
@@ -198,8 +196,8 @@ export default class PostsService {
     try {
       const whereProperty: Prisma.PostWhereInput = {
         title: {
-          contains: payload.search_text,
-          mode: 'insensitive'
+          mode: 'insensitive',
+          contains: payload.search_text
         }
       }
 

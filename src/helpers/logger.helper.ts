@@ -10,8 +10,8 @@ const logFormat = format.printf(
 export const logger = (path: string): Logger => {
   const systemLogger = createLogger({
     level: 'info',
-    format: format.combine(format.timestamp({ format: LOGGER_TIMESTAMP_FORMAT }), logFormat),
-    transports: [new transports.File({ filename: `./logs/${path}.log` })]
+    transports: [new transports.File({ filename: `./logs/${path}.log` })],
+    format: format.combine(format.timestamp({ format: LOGGER_TIMESTAMP_FORMAT }), logFormat)
   })
 
   if (process.env.NODE_ENV !== 'production') {

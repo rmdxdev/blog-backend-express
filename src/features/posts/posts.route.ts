@@ -2,7 +2,7 @@ import { ROUTER_PARAMS } from '@/configs'
 import { uploadImages, validationErrors } from '@/helpers'
 import checkAuthMiddleware from '@/middlewares/access-token.middleware'
 import { NextFunction, Request, Response, Router } from 'express'
-import { StatusCodes } from 'http-status-codes'
+import { ReasonPhrases, StatusCodes } from 'http-status-codes'
 import { MulterError } from 'multer'
 import fs from 'node:fs/promises'
 import sharp from 'sharp'
@@ -16,7 +16,7 @@ const uploadPostImage = (req: Request, res: Response, next: NextFunction) => {
 
   upload(req, res, async function (err) {
     if (err instanceof MulterError || err) {
-      return res.status(StatusCodes.BAD_REQUEST).send({ message: '1222' })
+      return res.status(StatusCodes.BAD_REQUEST).send({ message: ReasonPhrases.BAD_REQUEST })
     }
 
     if (!req.file) {
@@ -24,8 +24,8 @@ const uploadPostImage = (req: Request, res: Response, next: NextFunction) => {
     }
 
     try {
-      const fileNameWithoutType = req.file.filename.split('.')[0]
       const imageBuffer = await fs.readFile(req.file.path)
+      const fileNameWithoutType = req.file.filename.split('.')[0]
       const webpBuffer = await sharp(imageBuffer).webp().toBuffer()
 
       await fs.unlink(req.file.path)

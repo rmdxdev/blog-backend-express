@@ -10,6 +10,6 @@ export { findAuthToken, verifyAccessToken } from './token-actions.helper'
 export { uploadImages } from './upload-images.helper'
 export { validationErrors } from './validation-errors.helper'
 
-// Should be at the bottom!
+// Important structure
 export { registerMiddlewares } from './app/register-middlewares.helper'
 export { registerRoutes } from './app/register-routes.helper'

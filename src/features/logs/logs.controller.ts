@@ -1,4 +1,4 @@
-import { LogRequest, LogResponse } from '@/features/logs/ts/types'
+import { LogRequest, LogResponse } from '@/features/logs/types'
 import LogsService from './logs.service'
 
 export default class LogsController {

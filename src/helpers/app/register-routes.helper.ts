@@ -9,8 +9,8 @@ import { Router } from 'express'
 export const registerRoutes = (router: Router) => {
   router.use('/auth', authRouter)
   router.use('/logs', logsRouter)
-  router.use('/statistic', statisticsRouter)
   router.use('/posts', postsRouter)
   router.use('/profile', profileRouter)
   router.use('/comments', commentsRouter)
+  router.use('/statistic', statisticsRouter)
 }
