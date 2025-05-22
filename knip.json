@@ -1,0 +1,10 @@
+{
+  "ignoreDependencies": [
+    "ts-node",
+    "@swc/core",
+    "@swc/helpers",
+    "tsconfig-paths",
+    "regenerator-runtime",
+    "express-serve-static-core"
+  ]
+}
