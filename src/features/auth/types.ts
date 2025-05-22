@@ -40,11 +40,11 @@ export interface LoginData {
   password: string
 }
 
-export interface SendResetLinkData {
+interface SendResetLinkData {
   email: string
 }
 
-export interface ResetPasswordData {
+interface ResetPasswordData {
   password: string
 }
 
@@ -57,7 +57,7 @@ export interface ForgotPasswordPayload extends SendResetLinkData {
   lang: string
 }
 
-export interface RefreshTokensData {
+interface RefreshTokensData {
   refresh_token: string
 }
 

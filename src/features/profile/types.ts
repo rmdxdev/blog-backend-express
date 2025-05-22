@@ -11,7 +11,7 @@ export type ProfileEntitiesResponse = Response<
   { data: ProfilePost[]; pages: number; posts: number } | NotifyResponse
 >
 
-export interface ProfileEntityQueries {
+interface ProfileEntityQueries {
   page: string
   limit: string
   sort_by?: string

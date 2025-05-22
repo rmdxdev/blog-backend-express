@@ -38,19 +38,19 @@ export type CommentGetAllResponse = Response<
   (ShortComment & { user: CommentUser })[] | NotifyResponse
 >
 
-export interface CreateAndUpdateCommentData {
+interface CreateAndUpdateCommentData {
   text: string
 }
 
-export interface DeleteAndUpdateCommentParams {
+interface DeleteAndUpdateCommentParams {
   commentId: string
 }
 
-export interface CreateAndGetCommentParams {
+interface CreateAndGetCommentParams {
   postId: string
 }
 
-export interface GetAllCommentsQueries {
+interface GetAllCommentsQueries {
   limit: string
   offset: string
 }

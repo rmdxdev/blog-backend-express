@@ -28,7 +28,7 @@ export type GetAllPostsResponse = Response<
   { data: GetAllPost[]; posts: number; pages: number } | NotifyResponse
 >
 
-export interface CreatePostData {
+interface CreatePostData {
   desc: string
   title: string
   tags: string[]
@@ -40,7 +40,7 @@ export interface CreatePostPayload extends CreatePostData {
   userId: string
 }
 
-export interface PostsEntityQueries {
+interface PostsEntityQueries {
   page: string
   order?: Order
   limit: string
@@ -57,7 +57,7 @@ export interface UpdatePostPayload
 
 export interface LikesPayload extends Required<AuthMiddlewareRequest>, CommonPostParams {}
 
-export interface CommonPostParams {
+interface CommonPostParams {
   postId: string
 }
 
